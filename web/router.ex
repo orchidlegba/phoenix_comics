@@ -17,6 +17,8 @@ defmodule Comics.Router do
 
     get "/", PageController, :index
 
+    get "/tools", ToolsController, :index
+
     resources "/comics", ComicController
     resources "/authors", AuthorController
     resources "/illustrators", IllustratorController

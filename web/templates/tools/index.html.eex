@@ -1,0 +1,52 @@
+
+<div class="row">
+  	
+<form id="create-comic"  >  
+  <p> Add a comic </p>
+  <input type="text" name="title" placeholder="title" />
+  <input id="submit-comic" type="button" value="Submit"/>
+</form>
+
+
+   <script type="text/javascript">
+     (function() {
+
+     	document.addEventListener('DOMContentLoaded', function(event){
+     		init();
+     	}, false);
+
+		function init() {
+			console.log("DOM loaded ready for init ... ");
+		    var submitButtonElement = document.querySelector("#submit-comic");
+	 		submitButtonElement.addEventListener("click", function(event){
+	 			sendComic(event);
+	 		}, false);
+		}
+
+     	function sendComic(event){
+     	   event.preventDefault();
+
+     	   var formElement = document.querySelector("#create-comic");
+	       var csrf_token =  "<%= get_csrf_token() %>"
+	       var comicData = { "comic": 
+	       					{ "title" : formElement.title.value} };
+	       var comicDataText = JSON.stringify(comicData);
+
+	       console.log("I am about to POST this:\n\n" +  comicDataText );
+
+	       var r = new XMLHttpRequest();
+		   r.open("POST", "comics", true);
+		   r.setRequestHeader('x-csrf-token', csrf_token);
+		   r.setRequestHeader("Content-type","application/json");
+		   r.onreadystatechange = function () {
+		     if (r.readyState != 4 || r.status != 200) return;
+		     console.log("Success: " + r.responseText);
+		   };
+		   r.send(comicDataText);
+     	}
+
+     })();
+   </script>
+
+</div>
+
