@@ -4,6 +4,19 @@
 <form id="create-comic"  >  
   <p> Add a comic </p>
   <input type="text" name="title" placeholder="title" />
+  <br />
+  <input type="text" name="author_firstname" placeholder="author_firstname" />
+  <br />
+  <input type="text" name="author_lastname" placeholder="author_lastname" />
+  <br />
+  <input type="text" name="illustrator_firstname" placeholder="illustrator_firstname" />
+  <br />
+  <input type="text" name="illustrator_lastname" placeholder="illustrator_lastname" />
+  <br />
+  <input type="number" name="currency_price" placeholder="currency_price" />
+  <br />
+  <input type="text" name="currency_type" placeholder="currency_type" />
+  <br />
   <input id="submit-comic" type="button" value="Submit"/>
 </form>
 
@@ -28,8 +41,17 @@
 
      	   var formElement = document.querySelector("#create-comic");
 	       var csrf_token =  "<%= get_csrf_token() %>"
-	       var comicData = { "comic": 
-	       					{ "title" : formElement.title.value} };
+	       var comicData = { "comic" : { "title" : formElement.title.value} ,
+	        				 "author" : { "firstname" : formElement.author_firstname.value,
+	        				  		   "firstname" : formElement.author_lastname.value
+	        				 		  } ,
+	        				 "illustrator" : { "firstname" : formElement.illustrator_firstname.value,
+									   "firstname" : formElement.illustrator_lastname.value
+									  } ,
+							"currency": {"currency_price" : formElement.currency_price.value,
+									   "currency_price" : formElement.currency_type.value
+									  }
+	       					};
 	       var comicDataText = JSON.stringify(comicData);
 
 	       console.log("I am about to POST this:\n\n" +  comicDataText );

@@ -3,6 +3,9 @@ defmodule Comics.Comic do
 
   schema "comics" do
     field :title, :string
+    has_many :authors, Author
+    has_many :illustrators, Illustrator
+    has_one :currency, Currency
 
     timestamps
   end
